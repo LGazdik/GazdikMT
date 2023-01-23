@@ -6,6 +6,14 @@
     app:startDestination="@id/FirstFragment">
 
     <fragment
+        android:id="@+id/Page1Fragment"
+        android:name="app.gazdik_app.page1.Page1Fragment"
+        android:label="@string/page1_fragment_label"
+        tools:layout="@layout/fragment_page1">
+
+    </fragment>
+
+    <fragment
         android:id="@+id/FirstFragment"
         android:name="app.gazdik_app.FirstFragment"
         android:label="@string/first_fragment_label"
@@ -14,6 +22,11 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+
+        <action
+            android:id="@+id/action_FirstFragment_to_Page1Fragment"
+            app:destination="@id/Page1Fragment"/>
+
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"

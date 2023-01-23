@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Page1.Page1">
+    tools:context=".page1.Page1Fragment">
 
     <TextView
+        android:id="@+id/helo_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Hello" />
