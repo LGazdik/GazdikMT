@@ -8,6 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 /*
 private val moshi = Moshi.Builder()
@@ -24,14 +25,14 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface MovieApiService {
-    @GET("title/find?q=pred")
-//    @GET("title/find?q={MOVIE_NAME}")
+//    @GET("title/find?q=predator")
+    @GET("title/find")
     @Headers(
         "X-RapidAPI-Key: 3156fdf485msh59ed796406dbe6bp10ade1jsnb84d1e012606",
         "X-RapidAPI-Host: online-movie-database.p.rapidapi.com"
     )
-    fun getMovies(): Call<String>
-//    fun getMovies(@Path("MOVIE_NAME") movie_name: String): Call<String>
+//    fun getMovies(): Call<String>
+    fun getMovies(@Query("q") movie_name: String): Call<String>
 }
 
 object MovieApi {
