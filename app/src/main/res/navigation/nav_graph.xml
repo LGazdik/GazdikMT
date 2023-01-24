@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/Page1Fragment"
-        android:name="app.gazdik_app.page1.Page1Fragment"
+        android:name="app.gazdik_app.movie_page.Page1Fragment"
         android:label="@string/page1_fragment_label"
         tools:layout="@layout/fragment_movie">
 
@@ -15,7 +15,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="app.gazdik_app.FirstFragment"
+        android:name="app.gazdik_app.first_page.FirstFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
 
@@ -30,9 +30,9 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="app.gazdik_app.SavedMoviesFragment"
+        android:name="app.gazdik_app.saved_page.SavedMoviesFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_saved">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"

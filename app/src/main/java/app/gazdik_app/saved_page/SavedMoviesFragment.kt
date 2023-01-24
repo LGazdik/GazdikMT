@@ -1,22 +1,21 @@
-package app.gazdik_app
+package app.gazdik_app.saved_page
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import app.gazdik_app.databinding.FragmentSecondBinding
+import app.gazdik_app.R
+import app.gazdik_app.databinding.FragmentSavedBinding
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
- */
+ * */
 class SavedMoviesFragment : Fragment() {
 
-    private var _binding: FragmentSecondBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    private var _binding: FragmentSavedBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -24,9 +23,13 @@ class SavedMoviesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentSecondBinding.inflate(inflater, container, false)
+        _binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_saved,
+            container,
+            false
+        )
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

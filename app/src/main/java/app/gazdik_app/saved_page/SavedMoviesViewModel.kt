@@ -1,6 +1,5 @@
-package app.gazdik_app
+package app.gazdik_app.saved_page
 
-import android.view.View
 import androidx.lifecycle.ViewModel
 
 class SavedMoviesViewModel: ViewModel() {

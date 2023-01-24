@@ -1,4 +1,4 @@
-package app.gazdik_app
+package app.gazdik_app.first_page
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -22,12 +22,15 @@ class FirstFragmentViewModel: ViewModel() {
     val gson = Gson()
 
     private fun ListFill(j: JsonObject) {
+        if(!_movDat.isEmpty()){
+            _movDat.clear()
+        }
         val results = j.get("results").asJsonArray
         println("res size: " + results.size())
         for (i in 0 until results.size()) {
             var d: MovieData = gson.fromJson(results[i], MovieData::class.java)
             _movDat.add(d)
-            println(_movDat[i])
+//            println(_movDat[i])
         }
     }
 

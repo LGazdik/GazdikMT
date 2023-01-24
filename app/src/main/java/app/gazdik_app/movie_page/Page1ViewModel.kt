@@ -1,4 +1,4 @@
-package app.gazdik_app.page1
+package app.gazdik_app.movie_page
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
