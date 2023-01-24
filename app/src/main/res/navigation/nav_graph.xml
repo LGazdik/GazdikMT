@@ -9,7 +9,7 @@
         android:id="@+id/Page1Fragment"
         android:name="app.gazdik_app.page1.Page1Fragment"
         android:label="@string/page1_fragment_label"
-        tools:layout="@layout/fragment_page1">
+        tools:layout="@layout/fragment_movie">
 
     </fragment>
 
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="app.gazdik_app.SecondFragment"
+        android:name="app.gazdik_app.SavedMoviesFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
 

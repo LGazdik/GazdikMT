@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.get
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import app.gazdik_app.databinding.FragmentFirstBinding
@@ -27,20 +29,27 @@ class FirstFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        _binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_first,
+            container,
+            false
+        )
         return binding.root
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        var searchView = binding.searchView.query.toString()
 
         binding.buttonSavedMovies.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
+
         binding.buttonSearch.setOnClickListener {
-            FFviewModel.getMovie();
+            searchView = binding.searchView.query.toString()
+            FFviewModel.getMovie(searchView);
 
             //findNavController().navigate(R.id.action_FirstFragment_to_Page1Fragment)
         }
@@ -49,5 +58,12 @@ class FirstFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    fun recViewFill() {
+        var movielist = binding.returnedMoviesRecyclerView
+        for (i in 0 until FFviewModel.movDat.size) {
+            println(movielist.get(i))
+        }
     }
 }

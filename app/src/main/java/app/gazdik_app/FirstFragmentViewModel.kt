@@ -16,7 +16,9 @@ class FirstFragmentViewModel: ViewModel() {
     private val _response = MutableLiveData<String>()
     val response: LiveData<String> get() = _response
 
-    private var dat: MutableList<MovieData> = mutableListOf()
+    private var _movDat: MutableList<MovieData> = mutableListOf()
+    val movDat: List<MovieData> get() = _movDat
+
     val gson = Gson()
 
     private fun ListFill(j: JsonObject) {
@@ -24,13 +26,13 @@ class FirstFragmentViewModel: ViewModel() {
         println("res size: " + results.size())
         for (i in 0 until results.size()) {
             var d: MovieData = gson.fromJson(results[i], MovieData::class.java)
-            dat.add(d)
-            println(dat[i])
+            _movDat.add(d)
+            println(_movDat[i])
         }
     }
 
-    fun getMovie() {
-        MovieApi.retrofitService.getMovies("predator").enqueue(
+    fun getMovie( s:String ) {
+        MovieApi.retrofitService.getMovies(s).enqueue(
             object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     _response.value = "GET sucessfull:"
