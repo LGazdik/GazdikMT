@@ -11,6 +11,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import app.gazdik_app.R
+import app.gazdik_app.database.MovieRepo
+import app.gazdik_app.database.getDatabase
 import app.gazdik_app.databinding.FragmentFirstBinding
 
 /**
@@ -18,7 +20,7 @@ import app.gazdik_app.databinding.FragmentFirstBinding
  */
 class FirstFragment : Fragment() {
 
-//    private val FFviewModel: FirstFragmentViewModel by lazy {
+    //    private val FFviewModel: FirstFragmentViewModel by lazy {
 //        ViewModelProvider(this).get(FirstFragmentViewModel::class.java)
 //    }
 //
@@ -49,17 +51,18 @@ class FirstFragment : Fragment() {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
 
-        binding.buttonTester.setOnClickListener{
-            findNavController().navigate(R.id.action_FirstFragment_to_Page1Fragment)
+        binding.buttonTester.setOnClickListener {
+            if (viewModel.movDat[0] == null) {
+                println("movDat empty, retuning !!!")
+            } else {
+                findNavController().navigate(R.id.action_FirstFragment_to_Page1Fragment)
+            }
         }
 
         binding.buttonSearch.setOnClickListener {
             searchView = binding.searchView.query.toString()
-//            FFviewModel.getMovie(searchView)
             viewModel.getMovie(searchView)
             recViewFill()
-
-            //findNavController().navigate(R.id.action_FirstFragment_to_Page1Fragment)
         }
     }
 
@@ -76,4 +79,5 @@ class FirstFragment : Fragment() {
 //            println(movielist.get(i))
         }
     }
+
 }

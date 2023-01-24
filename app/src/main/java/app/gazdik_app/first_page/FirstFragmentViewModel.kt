@@ -3,6 +3,8 @@ package app.gazdik_app.first_page
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import app.gazdik_app.database.MovieRepo
+import app.gazdik_app.database.getDatabase
 import app.gazdik_app.net.MovieApi
 import app.gazdik_app.net.MovieData
 import com.google.gson.Gson
@@ -51,4 +53,7 @@ class FirstFragmentViewModel: ViewModel() {
             }
         )
     }
+
+//    private val movRep = MovieRepo(getDatabase(this))
+
 }

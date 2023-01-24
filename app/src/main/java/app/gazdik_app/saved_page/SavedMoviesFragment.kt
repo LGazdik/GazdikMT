@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import app.gazdik_app.R
+import app.gazdik_app.database.MovieDatabase
 import app.gazdik_app.databinding.FragmentSavedBinding
 
 /**
@@ -17,6 +18,8 @@ class SavedMoviesFragment : Fragment() {
 
     private var _binding: FragmentSavedBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var movieDB: MovieDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,10 +41,18 @@ class SavedMoviesFragment : Fragment() {
         binding.buttonSecond.setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
+
+        binding.buttonDeleteAll.setOnClickListener{
+            deleteMovieData()
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun deleteMovieData(){
+        movieDB.movieDao.nukeTable()
     }
 }
