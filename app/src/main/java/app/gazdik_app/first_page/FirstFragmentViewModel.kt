@@ -11,7 +11,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FirstFragmentViewModel: ViewModel() {
+class FirstFragmentViewModel : ViewModel() {
 
     private val _response = MutableLiveData<String>()
     val response: LiveData<String> get() = _response
@@ -19,27 +19,36 @@ class FirstFragmentViewModel: ViewModel() {
     private var _movDat: MutableList<MovieData> = mutableListOf()
     val movDat: List<MovieData> get() = _movDat
 
+    val tvgd: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+
     val gson = Gson()
 
     private fun ListFill(j: JsonObject) {
-        if(!_movDat.isEmpty()){
+        if (!_movDat.isEmpty()) {
             _movDat.clear()
         }
         val results = j.get("results").asJsonArray
         println("res size: " + results.size())
         for (i in 0 until results.size()) {
-            var d: MovieData = gson.fromJson(results[i], MovieData::class.java)
+            val d: MovieData = gson.fromJson(results[i], MovieData::class.java)
             _movDat.add(d)
         }
     }
 
-    fun getMovie( s:String ) {
+    fun ListClear(){
+        _movDat.clear()
+    }
+
+    fun getMovie(s: String) {
+        //ListClear()
         MovieApi.retrofitService.getMovies(s).enqueue(
             object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     _response.value = "GET sucessfull:"
                     println(_response.value)
-                    var respJson = gson.fromJson(response.body(), JsonObject::class.java)
+                    val respJson = gson.fromJson(response.body(), JsonObject::class.java)
                     ListFill(respJson)
                 }
 
@@ -50,6 +59,5 @@ class FirstFragmentViewModel: ViewModel() {
             }
         )
     }
-
 
 }

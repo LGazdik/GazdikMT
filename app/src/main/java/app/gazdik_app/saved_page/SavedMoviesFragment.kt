@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import app.gazdik_app.R
 import app.gazdik_app.database.MovieDatabase
@@ -18,6 +20,10 @@ import kotlinx.coroutines.launch
  * A simple [Fragment] subclass as the second destination in the navigation.
  * */
 class SavedMoviesFragment : Fragment() {
+
+    private val viewModel: SavedMoviesViewModel by lazy {
+        ViewModelProvider(this).get(SavedMoviesViewModel::class.java)
+    }
 
     private var _binding: FragmentSavedBinding? = null
     private val binding get() = _binding!!
@@ -35,6 +41,12 @@ class SavedMoviesFragment : Fragment() {
             container,
             false
         )
+
+        val tWGM = Observer<String> { newName ->
+            binding.textviewSavedMovies.text = newName
+        }
+        viewModel.tvdb.observe(viewLifecycleOwner, tWGM)
+
         return binding.root
     }
 
@@ -59,19 +71,20 @@ class SavedMoviesFragment : Fragment() {
     }
 
     private fun showAll() {
+        var t = ""
         GlobalScope.launch {
-            var t: String = ""
-            var listerin = movieDB.movieDao.getAll()
-            if (listerin.size == 0) {
-                binding.textviewSavedMovies.text = "No saved movies"
+            val listerin = movieDB.movieDao.getAll()
+            if (listerin.isEmpty()) {
+                t = "No saved movies"
             } else {
-                for (i in 0 until listerin.size) {
+                for (i in listerin.indices) {
                     t += listerin[i].title.toString() + "\n\n"
                     binding.textviewSavedMovies.text = t
                     println("movie in DB: " + listerin[i].id + " " + listerin[i].title)
                 }
             }
         }
+        viewModel.tvdb.value = t
     }
 
     private fun deleteMovieData() {
@@ -89,9 +102,10 @@ class SavedMoviesFragment : Fragment() {
                 }
 
             } catch (e: Exception) {
-                println("agony: " + e)
+                println("Agony: " + e)
             }
-
         }
+
+        viewModel.tvdb.value = "No saved movies"
     }
 }
