@@ -20,10 +20,6 @@ import app.gazdik_app.databinding.FragmentFirstBinding
  */
 class FirstFragment : Fragment() {
 
-    //    private val FFviewModel: FirstFragmentViewModel by lazy {
-//        ViewModelProvider(this).get(FirstFragmentViewModel::class.java)
-//    }
-//
     private val viewModel: FirstFragmentViewModel by activityViewModels()
 
     private var _binding: FragmentFirstBinding? = null
@@ -52,7 +48,7 @@ class FirstFragment : Fragment() {
         }
 
         binding.buttonTester.setOnClickListener {
-            if (viewModel.movDat[0] == null) {
+            if (viewModel.movDat.size == 0) {
                 println("movDat empty, retuning !!!")
             } else {
                 findNavController().navigate(R.id.action_FirstFragment_to_Page1Fragment)
@@ -72,7 +68,7 @@ class FirstFragment : Fragment() {
     }
 
     fun recViewFill() {
-        var movielist = binding.returnedMoviesRecyclerView
+//        var movielist = binding.returnedMoviesRecyclerView
         for (i in 0 until viewModel.movDat.size) {
             println(viewModel.movDat[i])
             println()

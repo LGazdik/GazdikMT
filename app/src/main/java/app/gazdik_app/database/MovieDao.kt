@@ -6,7 +6,7 @@ import androidx.room.*
 @Dao
 interface MovieDao {
     @Query(/* value = */ "select * from movie_table")
-    fun getAll(): LiveData<List<Movie>>
+    fun getAll(): List<Movie>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertOne(movie: Movie)

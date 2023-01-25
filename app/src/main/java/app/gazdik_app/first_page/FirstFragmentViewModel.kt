@@ -1,5 +1,6 @@
 package app.gazdik_app.first_page
 
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -32,7 +33,6 @@ class FirstFragmentViewModel: ViewModel() {
         for (i in 0 until results.size()) {
             var d: MovieData = gson.fromJson(results[i], MovieData::class.java)
             _movDat.add(d)
-//            println(_movDat[i])
         }
     }
 
@@ -54,6 +54,5 @@ class FirstFragmentViewModel: ViewModel() {
         )
     }
 
-//    private val movRep = MovieRepo(getDatabase(this))
 
 }

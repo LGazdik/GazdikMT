@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.viewModelScope
 import app.gazdik_app.R
 import app.gazdik_app.database.Movie
 import app.gazdik_app.database.MovieDatabase
-import app.gazdik_app.database.MovieRepo
+import app.gazdik_app.database.getDatabase
 import app.gazdik_app.databinding.FragmentMovieBinding
 import app.gazdik_app.first_page.FirstFragmentViewModel
 import app.gazdik_app.net.MovieData
@@ -27,6 +26,7 @@ class Page1Fragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var sendedMovie: MovieData
+    private lateinit var movieDB: MovieDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -40,7 +40,6 @@ class Page1Fragment : Fragment() {
 
     }
 
-    private lateinit var movieDB: MovieDatabase
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -48,9 +47,9 @@ class Page1Fragment : Fragment() {
         dataFill()
         println("kontext?: ")
         println(this.context)
-//        var zmovieDB = MovieDatabase.getDatabase(requireContext())
+
         binding.saveButton.setOnClickListener() {
-//            sv()
+            hrom()
         }
 
     }
@@ -67,23 +66,26 @@ class Page1Fragment : Fragment() {
         binding.movieRuntimeText.text = "Running time (min): " + sendedMovie.runningTime.toString()
     }
 
-//    private fun saveMovie() {
-//        val movie = Movie(
-//            0,
-//            sendedMovie.id,
-//            sendedMovie.title,
-//            sendedMovie.titleType,
-//            sendedMovie.year?.toInt(),
-//            sendedMovie.runningTime?.toInt()
-//        )
-//        try {
-//            GlobalScope.launch(Dispatchers.IO) {
-//                movieDB.movieDao.insertOne(movie)
-//                println("Writing to DB should be successfull")
-//            }
-//        } catch (e: Exception) {
-//            println("Exception: \n" + e)
-//        }
-//    }
+    fun hrom(){
+        val movie = Movie(
+            0,
+            sendedMovie.id,sendedMovie.title,sendedMovie.titleType,sendedMovie.year?.toInt(),
+            sendedMovie.runningTime?.toInt()
+        )
+        try {
+            movieDB = getDatabase(requireContext())
+            GlobalScope.launch(Dispatchers.IO) {
+                movieDB.movieDao.insertOne(movie)
+                println("Writing to DB should be successfull")
+
+                var listerin = movieDB.movieDao.getAll()
+                for (i in 0 until listerin.size){
+                    println("movie in DB: " + listerin[i].id +" "+ listerin[i].title)
+                }
+            }
+        } catch (e: Exception) {
+            println("ERROR - Exception: \n" + e)
+        }
+    }
 
 }
