@@ -61,8 +61,11 @@ class FirstFragment : Fragment() {
             } else {
                 viewModel.ListClear()
             }
-
-            showAll()
+            GlobalScope.launch {
+                delay(2000)
+                showAll()
+            }
+                //showAll()
 
         }
 
@@ -96,7 +99,7 @@ class FirstFragment : Fragment() {
                 println(viewModel.movDat[i].id + " " + viewModel.movDat[i].title)
             }
         }
-        viewModel.tvgd.value = t
+        viewModel.tvgd.postValue(t)
     }
 
 }
