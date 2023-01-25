@@ -5,15 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import app.gazdik_app.R
-import app.gazdik_app.database.MovieRepo
+import app.gazdik_app.database.MovieDatabase
 import app.gazdik_app.database.getDatabase
 import app.gazdik_app.databinding.FragmentFirstBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -24,6 +24,7 @@ class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
     private val binding get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,22 +59,12 @@ class FirstFragment : Fragment() {
         binding.buttonSearch.setOnClickListener {
             searchView = binding.searchView.query.toString()
             viewModel.getMovie(searchView)
-            recViewFill()
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    fun recViewFill() {
-//        var movielist = binding.returnedMoviesRecyclerView
-        for (i in 0 until viewModel.movDat.size) {
-            println(viewModel.movDat[i])
-            println()
-//            println(movielist.get(i))
-        }
     }
 
 }

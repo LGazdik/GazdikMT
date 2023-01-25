@@ -41,7 +41,8 @@ class SavedMoviesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sh()
+        movieDB = getDatabase(requireContext())
+        showAll()
 
         binding.buttonSecond.setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
@@ -57,12 +58,18 @@ class SavedMoviesFragment : Fragment() {
         _binding = null
     }
 
-    private fun sh() {
-        movieDB = getDatabase(requireContext())
+    private fun showAll() {
         GlobalScope.launch {
+            var t: String = ""
             var listerin = movieDB.movieDao.getAll()
-            for (i in 0 until listerin.size) {
-                println("movie in DB: " + listerin[i].id + " " + listerin[i].title)
+            if (listerin.size == 0) {
+                binding.textviewSavedMovies.text = "No saved movies"
+            } else {
+                for (i in 0 until listerin.size) {
+                    t += listerin[i].title.toString() + "\n\n"
+                    binding.textviewSavedMovies.text = t
+                    println("movie in DB: " + listerin[i].id + " " + listerin[i].title)
+                }
             }
         }
     }
